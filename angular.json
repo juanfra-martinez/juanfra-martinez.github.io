@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "juanfra.martinez.github.web": {
+    "website": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -27,7 +27,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -69,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "juanfra.martinez.github.web:build:production"
+              "browserTarget": "website:build:production"
             },
             "development": {
-              "browserTarget": "juanfra.martinez.github.web:build:development"
+              "browserTarget": "website:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "juanfra.martinez.github.web:build"
+            "browserTarget": "website:build"
           }
         },
         "test": {
@@ -95,17 +94,13 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
             "scripts": []
           }
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
   },
-  "defaultProject": "juanfra.martinez.github.web"
+  "defaultProject": "website"
 }
