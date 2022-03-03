@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
 import { DataService } from '../data.service';
 import { ICrypto } from './i-crypto';
 
@@ -9,8 +11,14 @@ import { ICrypto } from './i-crypto';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  myControl = new FormControl();
+  filteredOptions: Observable<ICrypto[]> | undefined;
   cryptos: ICrypto[] = [];
+  conversion: number = 0;
+  units_to_convert = 1;
+  dollars = 0;
 
+  private current_crypto_price = 0;
   private timer: any;
 
   constructor(private dataService: DataService) {}
@@ -19,6 +27,36 @@ export class HomeComponent implements OnInit, OnDestroy {
     const { item_el, price_el } = await this.dataService.getContent();
     this.initCryptos(item_el, price_el);
     this.startTimer();
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.name)),
+      map(name => (name ? this._filter(name) : this.cryptos.slice())),
+      map(name => {
+        if (name.length < this.cryptos.length) {
+          const crypto_dollars =  this.convertToNumber(name[0].price!)
+          this.current_crypto_price = crypto_dollars;
+        }
+
+        return name
+      }),
+    );
+  }
+
+  displayFn(crypto: ICrypto): string {
+    return crypto && crypto.name ? crypto.name : '';
+  }
+
+  onUnitsChange(event: any) {
+    setTimeout(() => {
+      const units = event.target.valueAsNumber;
+      this.dollars = +(units * this.current_crypto_price).toFixed(3);
+    },1);
+  }
+
+  private _filter(name: string): ICrypto[] {
+    const filterValue = name.toLowerCase();
+
+    return this.cryptos.filter(crypto => crypto.name?.toLowerCase().includes(filterValue));
   }
 
   private startTimer() {
@@ -58,6 +96,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       counter++
     })
+  }
+
+  private convertToNumber(value: string) {
+    const value_num = +value.replace('$','').replace('.','').replace(',','.');
+    const value_num_variant = +value.replace('$','').replace('.','');
+    return isNaN(value_num) ? value_num_variant : value_num;
   }
 
   ngOnDestroy(): void {
