@@ -1,1 +1,19 @@
-<p>home works!</p>
+
+<div class="container pre-scrollable" [ngStyle]="{'max-height': '75vh'}">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Crypto</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let currency of coins; let i = index">
+      <tr>
+        <th scope="row">{{i+1}}</th>
+        <td>{{currency.item}}</td>
+        <td>{{currency.price}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
