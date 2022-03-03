@@ -8,11 +8,11 @@
         <th scope="col">Price</th>
       </tr>
     </thead>
-    <tbody *ngFor="let currency of coins; let i = index">
+    <tbody *ngFor="let crypto of cryptos; let i = index">
       <tr>
         <th scope="row">{{i+1}}</th>
-        <td>{{currency.item}}</td>
-        <td>{{currency.price}}</td>
+        <td>{{crypto.name}}</td>
+        <td>{{crypto.price}}</td>
       </tr>
     </tbody>
   </table>

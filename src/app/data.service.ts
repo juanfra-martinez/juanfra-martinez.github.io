@@ -1,18 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+
+interface IWebContent {
+  body: string
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  url = 'https://www.coingecko.com/es';
+
   constructor(private http: HttpClient) { }
 
-  getData() {
-    const req = new HttpRequest('GET', this.url, {
-      reportProgress: true
-    });
+  async getContent() {
+    const content: IWebContent = await firstValueFrom(
+      this.http.get<any>('https://jfmartinez-api.vercel.app/prices')
+    );
 
-    return this.http.request(req);
+    if (!content) {
+      throw Error('No se ha podido adquirir el contenido')
+    }
+
+    return this.getPrices(content);
+  }
+
+  private getPrices(content: IWebContent) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content.body, 'text/html');
+    const price_el = doc.getElementsByClassName('td-price');
+    const item_el = doc.getElementsByClassName('tw-w-12');
+    return { item_el, price_el };
   }
 }
