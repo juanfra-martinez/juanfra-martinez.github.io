@@ -28,8 +28,8 @@ export class DataService {
   private getPrices(content: IWebContent) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(content.body, 'text/html');
-    const price_el = doc.getElementsByClassName('td-price');
-    const item_el = doc.getElementsByClassName('tw-w-12');
+    const price_el = doc.querySelectorAll('td.td-price');
+    const item_el = doc.querySelectorAll('a.tw-w-12');
     return { item_el, price_el };
   }
 }

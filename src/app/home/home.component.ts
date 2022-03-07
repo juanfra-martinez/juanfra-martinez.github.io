@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const { item_el, price_el } = await this.dataService.getContent();
+
     this.initCryptos(item_el, price_el);
     this.startTimer();
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -66,7 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }, 1000 * 30);
   }
 
-  private initCryptos(item_el: HTMLCollectionOf<Element>, price_el: HTMLCollectionOf<Element>) {
+  private initCryptos(item_el: NodeListOf<Element>, price_el: NodeListOf<Element>) {
     this.cryptos = [];
     let counter = 1;
     for (let i = 0; i <= 99; i++) {
@@ -75,14 +76,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private addCrypto(item_el: HTMLCollectionOf<Element>, i: number, price_el: HTMLCollectionOf<Element>, counter: number) {
+  private addCrypto(item_el: NodeListOf<Element>, i: number, price_el: NodeListOf<Element>, counter: number) {
     this.cryptos.push({
       name: item_el[i].textContent?.trim(),
       price: price_el[i + counter].textContent?.trim(),
     });
   }
 
-  private updateCrypto(item_el: HTMLCollectionOf<Element>, price_el: HTMLCollectionOf<Element>) {
+  private updateCrypto(item_el: NodeListOf<Element>, price_el: NodeListOf<Element>) {
     const currencies = Array.from(item_el)
     let counter = 1
     currencies.map( currency => {

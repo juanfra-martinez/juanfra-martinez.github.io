@@ -2,6 +2,9 @@
   max-height: 340px;
   overflow-y: scroll;
 }
+.filters {
+  margin: 0 auto;
+}
 .inputs-area {
   min-width: 150px;
   max-width: 768px;
