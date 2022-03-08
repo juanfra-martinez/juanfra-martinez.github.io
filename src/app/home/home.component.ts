@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onUnitsChange(event: any) {
     setTimeout(() => {
-      const units = event.target.valueAsNumber;
+      const units = event.target.value;
       this.dollars = +(units * this.current_crypto_price).toFixed(3);
     },1);
   }

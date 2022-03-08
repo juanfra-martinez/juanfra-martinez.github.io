@@ -2,20 +2,3 @@
   max-height: 340px;
   overflow-y: scroll;
 }
-.filters {
-  margin: 0 auto;
-}
-.inputs-area {
-  min-width: 150px;
-  max-width: 768px;
-  width: 100%;
-}
-.table-area {
-  margin: 0 auto;
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
-.example-full-width {
-  width: 100%;
-}

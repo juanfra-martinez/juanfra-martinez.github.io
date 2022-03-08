@@ -1,48 +1,57 @@
 
-<div class="container">
-  <div class="row filters">
-    <div class="col">
-      <form class="inputs-area">
-        <mat-form-field appearance="fill">
-          <mat-label>Crypto</mat-label>
-          <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option.name}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
-    </div>
-      <div class="col">
-        <mat-form-field appearance="fill">
+<div class="row mt-2 p-1">
+  <div class="container-sm">
+    <div class="row align-items-center">
+
+      <div class="col-4">
+        <form>
+          <mat-form-field>
+            <mat-label>Crypto</mat-label>
+            <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <div class="col-4">
+        <mat-form-field>
           <mat-label>Units</mat-label>
-          <input type="number" matInput (keydown)="onUnitsChange($event)">
+          <input matInput (keydown)="onUnitsChange($event)">
         </mat-form-field>
       </div>
-      <div class="col">
-        <mat-form-field appearance="fill">
+
+      <div class="col-4">
+        <mat-form-field>
           <mat-label>Dollars</mat-label>
-          <input type="number" matInput [value]="dollars" readonly>
+          <input matInput [value]="dollars" readonly>
         </mat-form-field>
       </div>
+
     </div>
-  <div class="row table-area pre-scrollable p-2" [ngStyle]="{'max-height': '75vh'}">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Crypto</th>
-          <th scope="col">Price</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let crypto of cryptos; let i = index">
-        <tr>
-          <th scope="row">{{i+1}}</th>
-          <td>{{crypto.name}}</td>
-          <td>{{crypto.price}}</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div class="row pre-scrollable mt-1 p-1" [ngStyle]="{'max-height': '75vh'}">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Crypto</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let crypto of cryptos; let i = index">
+          <tr>
+            <th scope="row">{{i+1}}</th>
+            <td>{{crypto.name}}</td>
+            <td>{{crypto.price}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+
+
 </div>
